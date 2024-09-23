@@ -1,0 +1,17 @@
+{
+  "name": "startup-pins",
+  "version": "1.0.0",
+  "description": "I disliked the pinned tab behaviour, so I created this extension to overwrite the behaviour to my liking",
+  "main": "index.js",
+  "scripts": {
+    "start": "web-ext run",
+    "lint": "web-ext lint",
+    "build": "web-ext build --overwrite-dest"
+  },
+  "author": "Pieterv24",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/firefox-webext-browser": "^120.0.4",
+    "web-ext": "^8.3.0"
+  }
+}

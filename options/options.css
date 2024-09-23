@@ -1,0 +1,102 @@
+body {
+    --grey10: #e7e7e7;
+
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: #fff;
+    color: rgb(74, 74, 79);
+    font-size: 13px;
+    overflow: hidden;
+}
+
+/* Remove margins and padding from the list */
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the list items */
+ul li {
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    background: #eee;
+    color: black;
+    font-size: 18px;
+    transition: 0.2s;
+
+    /* make the list items unselectable */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Set all odd list items to a different color (zebra-stripes) */
+ul li:nth-child(odd) {
+    background: #f9f9f9;
+}
+
+/* Style the remove button */
+.remove {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 12px 16px 12px 16px;
+    color: black;
+}
+
+.remove:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+.input-div {
+    margin-bottom: 10px;
+}
+
+/* Style item input */
+.item-input {
+    display: flex;
+    flex-direction: row;
+}
+
+/* Style the input */
+input {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    padding: 10px;
+    font-size: 16px;
+    flex-grow: 1;
+}
+
+.error-message {
+    color: red;
+    font-size: 18px;
+}
+
+/* Style the "Add" button */
+.addBtn {
+    padding: 10px;
+    background: #d9d9d9;
+    color: #555;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 0;
+}
+
+.addBtn:hover {
+    background-color: #bbb;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #23212a;
+        color: #fff;
+    }
+
+    p {
+        color: rgb(177, 177, 179);
+    }
+}
