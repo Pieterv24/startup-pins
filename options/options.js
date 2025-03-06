@@ -24,22 +24,51 @@
         renderListItems();
     }
 
+    const moveItem = async (up, item) => {
+        const itemIndex = items.indexOf(item);
+
+        if (up && itemIndex > 0) {
+            [items[itemIndex], items[itemIndex - 1]] = [items[itemIndex - 1], items[itemIndex]]
+        } else if (!up && itemIndex < items.length - 1) {
+            [items[itemIndex], items[itemIndex + 1]] = [items[itemIndex + 1], items[itemIndex]]
+        }
+        await browser.storage.local.set({ pins: items });
+
+        renderListItems();
+    }
+
+    const createSpan = (content, className, action) => {
+        let span = document.createElement('span');
+        let spanText = document.createTextNode(content);
+        span.className = className;
+        span.appendChild(spanText);
+        span.addEventListener('click', action);
+
+        return span;
+    }
+
     const renderListItems = () => {
         pinnedItems.innerHTML = '';
 
         for (let item of items) {
             // Create list item
             let li = document.createElement('li');
-            let liText = document.createTextNode(item);
-            li.appendChild(liText);
+            let textSpan = document.createElement('span');
+            let text = document.createTextNode(item);
+            textSpan.appendChild(text);
+            textSpan.className = 'text';
+            li.appendChild(textSpan);
 
             // Create delete button
-            let span = document.createElement('span');
-            let spanText = document.createTextNode('\u00D7');
-            span.className = 'remove';
-            span.appendChild(spanText);
-            span.addEventListener('click', () => removeItem(item));
-            li.appendChild(span);
+            const deleteButton = createSpan('\u00D7', 'remove', () => removeItem(item));
+            const upButton = createSpan('\u25B2', 'up', () => moveItem(true, item));
+            const downButton = createSpan('\u25BC', 'down', () => moveItem(false, item));
+            
+            if (items.length > 2) {
+                li.appendChild(upButton);
+                li.appendChild(downButton);
+            }
+            li.appendChild(deleteButton);
 
             pinnedItems.appendChild(li);
         }

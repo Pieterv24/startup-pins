@@ -1,7 +1,7 @@
 {
     "$schema": "https://json.schemastore.org/chrome-manifest",
     "manifest_version": 3,
-    "version": "1.0",
+    "version": "1.1",
     "name": "Startup Pins",
     "author": "Pieterv24",
     "description": "Lets you set pinned tabs on startup of FireFox (overrides default pinned tab behaviour)",
