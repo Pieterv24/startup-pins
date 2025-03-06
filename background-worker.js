@@ -9,7 +9,8 @@ browser.runtime.onStartup.addListener(async () => {
     await browser.tabs.remove(tabs.map(tab => tab.id));
 
     // Get the startup tabs from local storage
-    const startupTabs = (await browser.storage.local.get('pins')).pins || [];
+    const startupTabs = (await browser.storage.local.get('pins')).pins ?? [];
+    const removeExistingNewTab = (await browser.storage.local.get('removeNewTab')).removeNewTab ?? false;
 
     // Open startup tabs
     const tabCreations = [];
@@ -22,8 +23,10 @@ browser.runtime.onStartup.addListener(async () => {
     const firstTab = (await browser.tabs.query({index: 0}))[0];
     await browser.tabs.update(firstTab.id, {active: true});
 
-    const newTabs = (await browser.tabs.query({pinned: false})).filter(tab => tab.url === 'about:home' || tab.url === 'about:newtab');
-    await browser.tabs.remove(newTabs.map(tab => tab.id));
+    if (removeExistingNewTab) {
+        const newTabs = (await browser.tabs.query({pinned: false})).filter(tab => tab.url === 'about:home' || tab.url === 'about:newtab');
+        await browser.tabs.remove(newTabs.map(tab => tab.id));
+    }
 
     browser.tabs.onUpdated.addListener(async (id, info, tab) => {
         if (info.pinned && tab.url.substring(0,6).toLowerCase() !== "about:") {

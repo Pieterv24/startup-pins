@@ -9,8 +9,10 @@
     const pinnedItems = document.getElementById('pinned-items');
     const itemInputField = document.getElementById('item-input-field');
     const inputError = document.getElementById('input-error');
+    const newTabRemoveCheckbox = document.getElementById('removeExistingNewTab');
 
-    let items = (await browser.storage.local.get('pins')).pins || [];
+    let items = (await browser.storage.local.get('pins')).pins ?? [];
+    let removeNewTab = (await browser.storage.local.get('removeNewTab')).removeNewTab ?? false; 
 
     const removeItem = async (item) => {
         const itemIndex = items.indexOf(item);
@@ -64,14 +66,16 @@
             const upButton = createSpan('\u25B2', 'up', () => moveItem(true, item));
             const downButton = createSpan('\u25BC', 'down', () => moveItem(false, item));
             
-            if (items.length > 2) {
-                li.appendChild(upButton);
-                li.appendChild(downButton);
-            }
+            li.appendChild(upButton);
+            li.appendChild(downButton);
             li.appendChild(deleteButton);
 
             pinnedItems.appendChild(li);
         }
+    }
+
+    const updateCheckboxState = () => {
+        newTabRemoveCheckbox.checked = removeNewTab;
     }
 
     // Register Event listeners
@@ -92,6 +96,11 @@
             console.log(e);
             inputError.innerText = "Invalid url";
         }
+    });
+
+    newTabRemoveCheckbox.addEventListener('change', async () => {
+        removeNewTab = newTabRemoveCheckbox.checked;
+        await browser.storage.local.set({ removeNewTab: removeNewTab });
     });
 
     renderListItems();

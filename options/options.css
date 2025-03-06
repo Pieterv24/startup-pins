@@ -38,6 +38,8 @@ ul li:nth-child(odd) {
 
 .text {
     flex-grow: 1;
+    text-wrap: nowrap;
+    overflow: hidden;
 }
 
 /* Style the remove button */
@@ -72,6 +74,7 @@ ul li:nth-child(odd) {
 
 .input-div {
     margin-bottom: 10px;
+    font-size: 16px;
 }
 
 /* Style item input */
@@ -81,13 +84,19 @@ ul li:nth-child(odd) {
 }
 
 /* Style the input */
-input {
+#item-input-field {
     margin: 0;
     border: none;
     border-radius: 0;
     padding: 10px;
     font-size: 16px;
     flex-grow: 1;
+}
+
+#removeExistingNewTab {
+    margin: 16px 0px;
+    width: 18px;
+    height: 18px;
 }
 
 .error-message {
